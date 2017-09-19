@@ -8,9 +8,25 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
+  <% if user_signed_in? %>
+   <ul class="nav navbar-nav navbar-left">
+     <li><%= link_to "submit", new_submission_path %></li>
+     <li><%= link_to "account", edit_user_registration_path %></li>
+   </ul>
+   <ul class="nav navbar-nav navbar-right">
+     <li><%= link_to "logout", destroy_user_session_path, :method => :delete %></li>
+   </ul>
+
+   <% else %>
+   <ul class="nav navbar-nav pull-right">
+     <li><%= link_to "login", new_user_session_path %></li>
+   </ul>
+   <% end %>
+
   <% flash.each do |name, msg| %>
     <%= content_tag(:div, msg, class: "alert alert-#{name}") %>
   <% end %>
+
 
   <body>
     <%= yield %>
