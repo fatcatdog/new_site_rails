@@ -4,15 +4,16 @@ class SubmissionsController < ApplicationController
   # GET /submissions
   # GET /submissions.json
   def index
-    @submissions = Submission.all
+    @submissions = Submission.order(cached_votes_total: :desc)
   end
 
   # GET /submissions/1
   # GET /submissions/1.json
-  def show
-  end
 
   # GET /submissions/new
+  def show
+  end
+  
   def new
     @submission = current_user.submissions.build
   end
@@ -64,13 +65,13 @@ class SubmissionsController < ApplicationController
   def upvote
     @submission = Submission.find(params[:id])
     @submission.upvote_by current_user
-    redirect_to :back
+    redirect_back fallback_location: root_path
   end
 
   def downvote
     @submission = Submission.find(params[:id])
     @submission.downvote_by current_user
-    redirect_to :back
+    redirect_back fallback_location: root_path
   end
 
   private
