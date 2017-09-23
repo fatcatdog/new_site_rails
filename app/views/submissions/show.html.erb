@@ -4,7 +4,7 @@
       <i class="fa fa-caret-up fa-lg " aria-hidden="true"></i>
     <% end %>
     <%= @submission.title %>
-    <a href="<%= @submission.url %>"><%= @submission.url %></a>
+    <%= link_to @submission.url, "http://#{@submission.url}", target: "_blank" %>
   </h4>
   <p><%= @submission.get_upvotes.size %> points by <%= @submission.user.email %> <%= time_ago_in_words(@submission.created_at) %> ago | <%= link_to "#{@submission.comments.count} comments", @submission %> </p>
   <br>
